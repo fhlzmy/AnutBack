@@ -5,12 +5,14 @@ import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 @Aspect
 @Component
@@ -35,6 +37,10 @@ public class LogAspect {
         ResultLog resultLog = new ResultLog(url, ip, classMehod, args);
 
         logger.info("---------------before---------------");
+
+        Map<String, String> para = getParaterMap(request);
+
+        logger.info("请求的所有参数:" + para.toString());
 
         System.out.println(resultLog.toString());
     }
@@ -77,5 +83,23 @@ public class LogAspect {
                     ", args=" + Arrays.toString(args) +
                     "'}##################'";
         }
+    }
+
+
+    public static Map<String, String> getParaterMap(HttpServletRequest request){
+        Map<String, String> para = new HashMap<String, String>();
+        if(request == null){
+            return para;
+        }
+
+        Enumeration<String> parameterNames = request.getParameterNames();
+        String k = "";
+        String v = "";
+        while (parameterNames.hasMoreElements()){
+            k = parameterNames.nextElement();
+            v = request.getParameter(k);
+            para.put(k, v);
+        }
+        return para;
     }
 }

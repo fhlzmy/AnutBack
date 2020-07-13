@@ -1,5 +1,6 @@
 package com.fhlzmy.web.inteceptor;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,27 +24,39 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
 
-        String token = request.getHeader("token");///从请求头获取token
+        String token = request.getHeader("X-Token");///从请求头获取token
+
+        logger.info("token:"+token);
+
+
         String uri = request.getRequestURI();
-
-        System.out.println("uri:" + uri);
-        System.out.println("。。。。");
-
+        logger.info("uri:" + uri);
         if(uri.contains("login.do")){ ///登录请求就不验证token了
+            logger.info("登录的请求...送你去登录");
             return true;
         }
 
         String sessionToken = (String) session.getAttribute("token");
 
+        logger.info("session中的token:" + sessionToken);
         if(StringUtils.isEmpty(sessionToken)){ ///session中没有token， 送去登录
-            request.getRequestDispatcher("/");
+            logger.info("没有登录,送你去登录");
+            //request.getRequestDispatcher("localhost:8081/api/user/finaAllUser").forward(request, response);
+
+            ///2020-07-08  我上面是🇳喝了假酒吧 ， 居然用request转发
+            response.sendRedirect("http://127.0.0.1:9527#");///送你去登录
             return false;
         }else{
 
+            if(sessionToken.equalsIgnoreCase(token)){ ///session中的token和request中的token是一致的 .. 那就是同一个用户 ，Go
+                return true;
+            }else{
 
+                logger.error("session中的token不一致 ..  初步怀疑是session过期了 ..  没事 重登一下就好了 ");
+                ////这里有问题
+                return true;
+            }
         }
-
-        return true;
     }
 
 
@@ -54,6 +67,10 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
+        String uri = request.getRequestURI();
+        if(uri.contains("logout.do")){ ///如果是注销登录的请求的话,重定向到登录页面去!
+            logger.warn("👋,告辞!");
+            response.sendRedirect("http://127.0.0.1:9527#");
+        }
     }
 }

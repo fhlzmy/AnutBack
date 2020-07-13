@@ -1,6 +1,7 @@
 package com.fhlzmy.web.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fhlzmy.web.base.BaseController;
 import com.fhlzmy.web.model.User;
 import com.fhlzmy.web.services.UserService;
 import org.slf4j.Logger;
@@ -16,13 +17,11 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/api/user/*")
-public class UserController {
+@RequestMapping(value = "/api/user/")
+public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @ResponseBody
     @RequestMapping(value = "findAllUsers")
@@ -63,6 +62,11 @@ public class UserController {
     }
 
 
+    /**
+     * 用户登出, 清除掉session中的user和token --- 之后改造成用Redis存储这些东西
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "logout.do")
     public String logout(HttpServletRequest request){

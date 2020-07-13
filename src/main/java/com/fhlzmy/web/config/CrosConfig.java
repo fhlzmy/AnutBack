@@ -27,7 +27,7 @@ public class CrosConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**") //////拦截所有请求
-                .excludePathPatterns("/api/*/login.do");////除了登录的请求
+                .excludePathPatterns("login.do");////除了登录的请求
     }
 
 

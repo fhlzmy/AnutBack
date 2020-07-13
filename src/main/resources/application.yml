@@ -25,6 +25,8 @@ spring:
   jpa:
     database: mysql
     hibernate:
+      #create-drop 每次都是删除表并新建. 建议使用update
+      #ddl-auto: create-drop
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -37,3 +39,23 @@ spring:
       additional-paths: src/main/java
       additional-exclude: WEB-INF/**
 
+
+
+  # 使用树莓派的redis
+  redis:
+    host: 192.168.31.234
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8 #最大连接数
+        max-wait: -1  #连接池最大阻塞等待时间
+        max-idle: 8   #最大空闲连接
+        min-idle: 1   #最小空闲连接
+    timeout: 1000     #连接超时时间 1000毫秒
+    password: fangLxh0726350
+
+#日志
+logging:
+  level:
+    # com.fhlzmy目录下日志级别info
+    com.fhlzmy: info

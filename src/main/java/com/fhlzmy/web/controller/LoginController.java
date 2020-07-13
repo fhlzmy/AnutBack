@@ -3,6 +3,7 @@ package com.fhlzmy.web.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fhlzmy.web.base.BaseController;
 import com.fhlzmy.web.dao.UserRepository;
 import com.fhlzmy.web.model.User;
 import org.slf4j.Logger;
@@ -21,9 +22,8 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping(value = "/api/login/*")
-public class LoginController {
+public class LoginController extends BaseController {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserRepository userRepository;
 
