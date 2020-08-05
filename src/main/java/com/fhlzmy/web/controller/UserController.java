@@ -16,6 +16,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * 这是一个用户相关的controller, 不涉及到逻辑.
+ *
+ * 有啥逻辑处理的全丢给UserService处理,这里只能用于请求转发!!!
+ *
+ *
+ * controller方法名建议和Service方法名一致
+ */
 @Controller
 @RequestMapping(value = "/api/user/")
 public class UserController extends BaseController {
@@ -77,6 +85,18 @@ public class UserController extends BaseController {
         JSONObject obj = new JSONObject();
         obj.put("code", 50012);
         return obj.toJSONString();
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "register.do")
+    public String register(@RequestBody User registerUser, HttpServletRequest request){
+
+
+
+
+
+        return registerUser.toString();
     }
 
 

@@ -1,9 +1,12 @@
 server:
   port: 8081
+#  这里是application的上下文  --- 暂时先注释掉
+#  servlet:
+#    context-path: /fhl
 spring:
   datasource:
     name: test
-    url: jdbc:mysql://localhost:3306/fhl?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    url: jdbc:mysql://localhost:3306/fhl?characterEncoding=utf-8&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: password
     # 使用druid数据源
@@ -42,6 +45,7 @@ spring:
 
 
   # 使用树莓派的redis
+  # 暂时先注释掉吧 ...
   redis:
     host: 192.168.31.234
     port: 6379

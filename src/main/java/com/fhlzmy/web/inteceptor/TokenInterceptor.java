@@ -1,6 +1,7 @@
 package com.fhlzmy.web.inteceptor;
 
 
+import com.fhlzmy.web.Const.Const;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,15 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         logger.info("token:"+token);
 
-
         String uri = request.getRequestURI();
         logger.info("uri:" + uri);
-        if(uri.contains("login.do")){ ///登录请求就不验证token了
+        /*if(uri.contains("login.do")){ ///登录请求就不验证token了
             logger.info("登录的请求...送你去登录");
             return true;
+        }*/
+
+        if(Const.getRequestWhiteUrl().contains(uri)){
+            logger.info("");
         }
 
         String sessionToken = (String) session.getAttribute("token");
