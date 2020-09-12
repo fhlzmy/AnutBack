@@ -48,8 +48,11 @@ public class TokenInterceptor implements HandlerInterceptor {
             //request.getRequestDispatcher("localhost:8081/api/user/finaAllUser").forward(request, response);
 
             ///2020-07-08  我上面是🇳喝了假酒吧 ， 居然用request转发
-            response.sendRedirect("http://127.0.0.1:9527#");///送你去登录
-            return false;
+
+            // 测试后台用,所以这里的下面两行代码就先注释掉哦. 后台代码测试好了再打开...
+            //response.sendRedirect("http://127.0.0.1:9527#");///送你去登录
+            //return false;
+            return true;
         }else{
 
             if(sessionToken.equalsIgnoreCase(token)){ ///session中的token和request中的token是一致的 .. 那就是同一个用户 ，Go

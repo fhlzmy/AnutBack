@@ -7,13 +7,43 @@ package com.fhlzmy.web.exception;
  */
 public class BusException extends RuntimeException{
 
+    private String code;
 
     private String message;
 
     private Boolean success;
 
+    public BusException(){}
+
+    public BusException(String code, String message, Boolean success){
+        this.code = code;
+        this.message = message;
+        this.success = success;
+    }
 
 
+    public String getCode() {
+        return code;
+    }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
 
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
 }

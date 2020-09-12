@@ -20,6 +20,8 @@ import java.util.Map;
 /**
  * 显而易见,这是一个集中处理异常的控制器,我可能会扔出一些自己定义的异常. 我需要在前端显示自定义的异常信息,而不是springboot自带的乱七八糟
  * e.print();
+ *
+ * 2020-09-11,发现了一个更加实用的方式来实现这个类的作用.---> @RestControllerAdvice注解的类可以通过@ExceptionHandler来捕捉异常
  */
 @Controller
 public class ExceptionController extends AbstractErrorController {
