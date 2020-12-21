@@ -1,29 +1,30 @@
 package com.fhlzmy.web.model;
 
 
-import org.hibernate.annotations.GenericGenerator;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity
-@javax.persistence.Table(name = "user")
+// TableName映射,  自动的resultMap
+@TableName(value = "user",autoResultMap = true)
 public class User {
 
-    @Id
-    @GenericGenerator(name = "generator", strategy = "uuid")
-    @GeneratedValue(generator = "generator")
+    @TableId(value = "userId", type = IdType.UUID)
     private String userId;
 
-    @Column
+    @TableField(value = "account")
     private String account;
-    @Column
+
+    @TableField(value = "userName")
     private String userName;
-    @Column
+
+    @TableField(value = "password")
     private String password;
-    @Column
+
+    @TableField(value = "sex")
     private String sex;
 
     public String getUserId() {
